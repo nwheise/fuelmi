@@ -9,12 +9,23 @@ SCREEN_HEIGHT = 504
 TEXT_SIZE = 30
 BUTTON_SIZE = (100, 100)
 PET_IMG_SIZE = (275, 275)
+BACKGROUND_COLOR = (255, 255, 255)
+MENU_BACKGROUND_COLOR = (0, 240, 255)
+NUMBER_SELECTORS = [(str(i), i) for i in range(10)]
 
 
 def text_to_screen(text: str, x: int, y: int, size: int, color: tuple, font_type: str):
     font = pygame.font.SysFont(font_type, size)
     text = font.render(text, True, color)
     screen.blit(text, (x, y))
+
+
+def menu_background():
+    """
+    Background color of the main menu, on this function user can plot
+    images, play sounds, etc.
+    """
+    screen.fill(MENU_BACKGROUND_COLOR)
 
 
 def main():
@@ -25,7 +36,7 @@ def main():
     # Create global variables
     global screen, clock
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    screen.fill(color=(255, 255, 255))
+    screen.fill(color=BACKGROUND_COLOR)
     clock = pygame.time.Clock()
 
     # some stat
@@ -43,9 +54,31 @@ def main():
     pet_image = pygame.image.load(os.path.join('images', 'tamagotchi.png'))
     pet_image = pygame.transform.scale(pet_image, PET_IMG_SIZE)
 
+    FOOD = ['Fruits', 'Vegetables', 'Grains']
+    # Menu
+    food_menu = pygameMenu.TextMenu(screen,
+                       bgfun=menu_background,
+                       enabled=False,
+                       font=pygameMenu.fonts.FONT_NEVIS,
+                       menu_alpha=90,
+                       onclose=pygameMenu.locals.PYGAME_MENU_CLOSE,
+                       title='Feed',
+                       title_offsety=5,
+                       window_height=SCREEN_HEIGHT,
+                       window_width=SCREEN_WIDTH)
+    for m in FOOD:
+        food_menu.add_selector(title=m,
+                               values=NUMBER_SELECTORS,
+                               onchange=None,
+                               onreturn=None)
+    food_menu.add_option('Feed', pygameMenu.locals.PYGAME_MENU_CLOSE)
+
     # main loop
     running = True
     while running:
+        # Paint background
+        screen.fill(BACKGROUND_COLOR)
+
         # Draw a button
         food_icon_button = screen.blit(food_icon,
                                        (SCREEN_WIDTH // 5, 3.5 * (SCREEN_HEIGHT // 5)))
@@ -57,20 +90,16 @@ def main():
         # Draw the image
         screen.blit(pet_image, (100, 50))
 
-
         # Handle events
-        for event in pygame.event.get():
+        events = pygame.event.get()
+        for event in events:
             if event.type == pygame.QUIT:
                 running = False
             elif event.type == pygame.MOUSEBUTTONUP:
                 mouse_pos = pygame.mouse.get_pos()
                 if food_icon_button.collidepoint(mouse_pos):
-                    text_to_screen(text='Clicked food!',
-                       x=50,
-                       y=50,
-                       size=TEXT_SIZE,
-                       color=(0, 0, 0),
-                       font_type='Arial')
+                    food_menu.enable()
+                    food_menu.mainloop(events)
                 elif activity_icon_button.collidepoint(mouse_pos):
                     text_to_screen(text='Clicked activity!',
                        x=50,
