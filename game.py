@@ -175,7 +175,6 @@ def create_food_menu():
                                onchange=None,
                                onreturn=update_nutrition,
                                food_type=m)
-    food_menu.add_option('Feed me', pygameMenu.locals.PYGAME_MENU_CLOSE)
 
     return food_menu
 
@@ -190,7 +189,7 @@ def create_sleep_menu():
                                      font=pygameMenu.fonts.FONT_NEVIS,
                                      menu_alpha=90,
                                      onclose=pygameMenu.locals.PYGAME_MENU_CLOSE,
-                                     title='Feed',
+                                     title='Sleep',
                                      title_offsety=5,
                                      window_height=SCREEN_HEIGHT,
                                      window_width=SCREEN_WIDTH)
