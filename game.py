@@ -15,9 +15,9 @@ NUMBER_SELECTORS = [(str(i), i) for i in range(10)]
 STATUS_BAR_WIDTH = 208
 STATUS_BAR_HEIGHT = 50
 
-nutrition_level = 0
-activity_level = 50
-sleep_level = 100
+nutrition_level = 60
+activity_level = 90
+sleep_level = 30
 
 
 def text_to_screen(text: str, x: int, y: int, size: int, color: tuple, font_type: str):
@@ -37,9 +37,9 @@ def menu_background():
 
 
 def render_progress_bar(stat_name: str, value: int, x: int, y: int):
-    if value > 75:
+    if value > 66:
         bar_color = (0, 180, 0)
-    elif value > 40:
+    elif value > 33:
         bar_color = (255, 165, 0)
     else:
         bar_color = (255, 0, 0)
@@ -63,6 +63,17 @@ def render_progress_bar(stat_name: str, value: int, x: int, y: int):
                    color=(0, 0, 0),
                    font_type='consolas')
 
+
+def update_nutrition(change: int):
+    global nutrition_level
+    nutrition_level += change
+
+
+def decrease_stats():
+    global nutrition_level, activity_level, sleep_level
+    nutrition_level -= 5
+    activity_level -= 5
+    sleep_level -= 5
 
 def main():
     # initialize the pygame module
@@ -103,10 +114,11 @@ def main():
         food_menu.add_selector(title=m,
                                values=NUMBER_SELECTORS,
                                onchange=None,
-                               onreturn=None)
+                               onreturn=update_nutrition)
     food_menu.add_option('Close', pygameMenu.locals.PYGAME_MENU_CLOSE)
 
     # main loop
+    frame = 0
     running = True
     while running:
         # Paint background
@@ -152,6 +164,10 @@ def main():
                        size=TEXT_SIZE,
                        color=(0, 0, 0),
                        font_type='Arial')
+
+        frame += FPS
+        if frame % 9000 == 0:
+            decrease_stats()
 
         pygame.display.update()
         clock.tick(FPS)
