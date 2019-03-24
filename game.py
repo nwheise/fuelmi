@@ -12,6 +12,12 @@ PET_IMG_SIZE = (275, 275)
 BACKGROUND_COLOR = (255, 255, 255)
 MENU_BACKGROUND_COLOR = (0, 240, 255)
 NUMBER_SELECTORS = [(str(i), i) for i in range(10)]
+STATUS_BAR_WIDTH = 208
+STATUS_BAR_HEIGHT = 50
+
+nutrition_level = 0
+activity_level = 50
+sleep_level = 100
 
 
 def text_to_screen(text: str, x: int, y: int, size: int, color: tuple, font_type: str):
@@ -30,6 +36,34 @@ def menu_background():
     screen.fill(MENU_BACKGROUND_COLOR)
 
 
+def render_progress_bar(stat_name: str, value: int, x: int, y: int):
+    if value > 75:
+        bar_color = (0, 180, 0)
+    elif value > 40:
+        bar_color = (255, 165, 0)
+    else:
+        bar_color = (255, 0, 0)
+
+    percent_text = f'{value:2d}%'
+    text_to_screen(text=percent_text,
+                   x= x + STATUS_BAR_WIDTH + 20,
+                   y= y + (STATUS_BAR_HEIGHT - TEXT_SIZE) // 2,
+                   size=TEXT_SIZE,
+                   color=(0, 0, 0),
+                   font_type='consolas')
+
+    pygame.draw.rect(screen, (0, 0, 0), (x, y, STATUS_BAR_WIDTH, STATUS_BAR_HEIGHT))
+    pygame.draw.rect(screen, (255, 255, 255), (x + 2, y + 2, STATUS_BAR_WIDTH - 4, STATUS_BAR_HEIGHT - 4))
+    pygame.draw.rect(screen, bar_color, (x + 4, y + 4, (STATUS_BAR_WIDTH // 100) * value, STATUS_BAR_HEIGHT - 8))
+
+    text_to_screen(text=stat_name,
+                   x= x + 20,
+                   y= y + (STATUS_BAR_HEIGHT - TEXT_SIZE) // 2,
+                   size=TEXT_SIZE,
+                   color=(0, 0, 0),
+                   font_type='consolas')
+
+
 def main():
     # initialize the pygame module
     pygame.init()
@@ -40,9 +74,6 @@ def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     screen.fill(color=BACKGROUND_COLOR)
     clock = pygame.time.Clock()
-
-    # some stat
-    time = 0
 
     # get icons
     food_icon = pygame.image.load(os.path.join('images', 'food_icon.png'))
@@ -81,6 +112,11 @@ def main():
         # Paint background
         screen.fill(BACKGROUND_COLOR)
 
+        # Progress bars
+        render_progress_bar(stat_name='nutrition', value=nutrition_level, x=500, y=100)
+        render_progress_bar(stat_name='activity', value=activity_level, x=500, y=175)
+        render_progress_bar(stat_name='sleep', value=sleep_level, x=500, y=250)
+
         # Draw a button
         food_icon_button = screen.blit(food_icon,
                                        (SCREEN_WIDTH // 5, 3.5 * (SCREEN_HEIGHT // 5)))
@@ -117,8 +153,6 @@ def main():
                        color=(0, 0, 0),
                        font_type='Arial')
 
-
-        time += 1 / FPS
         pygame.display.update()
         clock.tick(FPS)
 
