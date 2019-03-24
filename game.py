@@ -228,6 +228,9 @@ def main():
     pygame.init()
     pygame.display.set_caption('FuelMi')
 
+    logo = pygame.image.load(os.path.join('images', 'logo.png'))
+    pygame.display.set_icon(logo)
+
     # Create global variables
     global screen, clock
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
