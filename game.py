@@ -15,16 +15,18 @@ NUMBER_SELECTORS = [(str(i), i) for i in range(10)]
 
 
 def text_to_screen(text: str, x: int, y: int, size: int, color: tuple, font_type: str):
+    '''
+    A simple function for blitting text on the screen
+    '''
     font = pygame.font.SysFont(font_type, size)
     text = font.render(text, True, color)
     screen.blit(text, (x, y))
 
 
 def menu_background():
-    """
-    Background color of the main menu, on this function user can plot
-    images, play sounds, etc.
-    """
+    '''
+    Function to fill the background when a menu pops up
+    '''
     screen.fill(MENU_BACKGROUND_COLOR)
 
 
@@ -54,24 +56,24 @@ def main():
     pet_image = pygame.image.load(os.path.join('images', 'tamagotchi.png'))
     pet_image = pygame.transform.scale(pet_image, PET_IMG_SIZE)
 
-    FOOD = ['Fruits', 'Vegetables', 'Grains']
     # Menu
-    food_menu = pygameMenu.TextMenu(screen,
-                       bgfun=menu_background,
-                       enabled=False,
-                       font=pygameMenu.fonts.FONT_NEVIS,
-                       menu_alpha=90,
-                       onclose=pygameMenu.locals.PYGAME_MENU_CLOSE,
-                       title='Feed',
-                       title_offsety=5,
-                       window_height=SCREEN_HEIGHT,
-                       window_width=SCREEN_WIDTH)
+    FOOD = ['Fruits', 'Vegetables', 'Grains']
+    food_menu = pygameMenu.TextMenu(surface=screen,
+                                    bgfun=menu_background,
+                                    enabled=False,
+                                    font=pygameMenu.fonts.FONT_NEVIS,
+                                    menu_alpha=90,
+                                    onclose=pygameMenu.locals.PYGAME_MENU_CLOSE,
+                                    title='Feed',
+                                    title_offsety=5,
+                                    window_height=SCREEN_HEIGHT,
+                                    window_width=SCREEN_WIDTH)
     for m in FOOD:
         food_menu.add_selector(title=m,
                                values=NUMBER_SELECTORS,
                                onchange=None,
                                onreturn=None)
-    food_menu.add_option('Feed', pygameMenu.locals.PYGAME_MENU_CLOSE)
+    food_menu.add_option('Close', pygameMenu.locals.PYGAME_MENU_CLOSE)
 
     # main loop
     running = True
@@ -117,7 +119,7 @@ def main():
 
 
         time += 1 / FPS
-        pygame.display.flip()
+        pygame.display.update()
         clock.tick(FPS)
 
 
