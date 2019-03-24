@@ -21,9 +21,9 @@ MINUTES_SELECTORS = [(str(i*10), i*10) for i in range(10)]
 FOODS = ['Fruits', 'Vegetables', 'Water', 'Junk']
 
 # Define the primary stats
-nutrition = {'Fruits': 70, 'Vegetables': 60, 'Water': 90, 'Junk': 0}
+nutrition = {'Fruits': 30, 'Vegetables': 60, 'Water': 40, 'Junk': 0}
 activity_level = 60
-sleep_level = 30
+sleep_level = 35
 
 
 def text_to_screen(text: str, x: int, y: int, size: int, color: tuple, font_type: str):
@@ -165,7 +165,7 @@ def create_food_menu():
                                     font=pygameMenu.fonts.FONT_NEVIS,
                                     menu_alpha=90,
                                     onclose=pygameMenu.locals.PYGAME_MENU_CLOSE,
-                                    title='Feed',
+                                    title='Eat',
                                     title_offsety=5,
                                     window_height=SCREEN_HEIGHT,
                                     window_width=SCREEN_WIDTH)
@@ -226,7 +226,7 @@ def create_activity_menu():
 def main():
     # initialize the pygame module
     pygame.init()
-    pygame.display.set_caption('health pet')
+    pygame.display.set_caption('FuelMi')
 
     # Create global variables
     global screen, clock
