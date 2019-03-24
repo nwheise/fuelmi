@@ -17,12 +17,13 @@ BACKGROUND_COLOR = (255, 255, 255)
 MENU_BACKGROUND_COLOR = (0, 240, 255)
 
 NUMBER_SELECTORS = [(str(i), i) for i in range(10)]
+MINUTES_SELECTORS = [(str(i*10), i*10) for i in range(10)]
 FOODS = ['Fruits', 'Vegetables', 'Water', 'Junk']
 
 # Define the primary stats
 nutrition = {'Fruits': 70, 'Vegetables': 60, 'Water': 90, 'Junk': 0}
-activity_level = 35
-sleep_level = 60
+activity_level = 60
+sleep_level = 30
 
 
 def text_to_screen(text: str, x: int, y: int, size: int, color: tuple, font_type: str):
@@ -123,6 +124,17 @@ def update_sleep(change: int):
         sleep_level = 100
 
 
+def update_activity(change: int):
+    '''
+    Increase activity level based on minutes active
+    '''
+    global activity_level
+
+    activity_level += change
+    if activity_level > 100:
+        activity_level = 100
+
+
 def decrease_stats():
     '''
     Decrease all stats (nutrition, activity, and sleep)
@@ -190,6 +202,28 @@ def create_sleep_menu():
     return sleep_menu
 
 
+def create_activity_menu():
+    '''
+    Create and return a TextMenu for how many hours slept
+    '''
+    activity_menu = pygameMenu.TextMenu(surface=screen,
+                                        bgfun=menu_background,
+                                        enabled=False,
+                                        font=pygameMenu.fonts.FONT_NEVIS,
+                                        menu_alpha=90,
+                                        onclose=pygameMenu.locals.PYGAME_MENU_CLOSE,
+                                        title='Exercise',
+                                        title_offsety=5,
+                                        window_height=SCREEN_HEIGHT,
+                                        window_width=SCREEN_WIDTH)
+    activity_menu.add_selector(title='Active Minutes',
+                               values=MINUTES_SELECTORS,
+                               onchange=None,
+                               onreturn=update_activity)
+
+    return activity_menu
+
+
 def main():
     # initialize the pygame module
     pygame.init()
@@ -222,6 +256,7 @@ def main():
     # create menus
     food_menu = create_food_menu()
     sleep_menu = create_sleep_menu()
+    activity_menu = create_activity_menu()
 
     # main loop
     frame = 0
@@ -266,7 +301,8 @@ def main():
                     food_menu.enable()
                     food_menu.mainloop(events)
                 elif activity_icon_button.collidepoint(mouse_pos):
-                    ## TODO ! activity menu
+                    activity_menu.enable()
+                    activity_menu.mainloop(events)
                 elif sleep_icon_button.collidepoint(mouse_pos):
                     sleep_menu.enable()
                     sleep_menu.mainloop(events)
