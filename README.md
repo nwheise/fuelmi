@@ -1,7 +1,12 @@
 # FuelMi
 <p>FuelMi: The pet that takes care of you.</p>
 <p>2nd place solution for the Capgemini challenge at HackBordeaux 2019: How to leverage technology for preventative healthcare.</p>
-<p>Team: [Yassine El Khattabi], [Hanna Abi Akl], [Marlena Kiszycka], and [Nick Heise]</p>
+<p>Team:</p>
+
+[Yassine El Khattabi](https://github.com/YELKHATTABI)  
+[Hanna Abi Akl](https://github.com/HannaAbiAkl)  
+[Marlena Kiszycka](https://github.com/marly22)  
+[Nick Heise](https://github.com/nicholashz)  
 
 ## Inspiration
 <p>Healthcare is a difficult subject to manage efficiently, particularly in countries without universal healthcare such as the United States. Care can be very expensive, both for the patient and for hospitals or governments. Because of this, preventative healthcare has become increasingly important to reduce costs and improve health overall.</p>
@@ -22,8 +27,3 @@
 
 ## What we learned
 <p>We learned how to quickly design and built up a project from scratch. Further, we learned how to define clear goals and work in "sprints" in order to achieve smaller, manageable objectives.</p>
-
-[Yassine El Khattabi](https://github.com/YELKHATTABI)
-[Hanna Abi Akl](https://github.com/HannaAbiAkl)
-[Marlena Kiszycka](https://github.com/marly22)
-[Nick Heise](https://github.com/nicholashz)
