@@ -1,7 +1,7 @@
 # FuelMi
-<p>The pet that takes care of you.</p>
+<p>FuelMi: The pet that takes care of you.</p>
 <p>2nd place solution for the Capgemini challenge at HackBordeaux 2019: How to leverage technology for preventative healthcare.</p>
-[Demo](https://www.youtube.com/watch?v=eDNGyVtM7ho)
+[Demo][1]
 
 ## Inspiration
 <p>Healthcare is a difficult subject to manage efficiently, particularly in countries without universal healthcare such as the United States. Care can be very expensive, both for the patient and for hospitals or governments. Because of this, preventative healthcare has become increasingly important to reduce costs and improve health overall.</p>
@@ -25,3 +25,5 @@
 
 ## What's next for FuelMi
 <p>Silicon Valley, baby.</p>
+
+[1]: https://www.youtube.com/watch?v=eDNGyVtM7ho
