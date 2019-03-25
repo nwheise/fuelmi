@@ -22,3 +22,5 @@
 
 ## What we learned
 <p>We learned how to quickly design and built up a project from scratch. Further, we learned how to define clear goals and work in "sprints" in order to achieve smaller, manageable objectives.</p>
+
+[Marlena Kiszycka](https://github.com/marly22)
